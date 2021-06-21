@@ -52,7 +52,7 @@ self.addEventListener('fetch', (e) => {
     if (r) return r;
     const response = await fetch(e.request);
 
-    if(!request.url.endsWith(".json")){
+    if(!e.request.url.endsWith(".json")){
         const cache = await caches.open(cacheName);
         console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
         cache.put(e.request, response.clone());
