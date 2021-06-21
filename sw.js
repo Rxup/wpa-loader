@@ -6,7 +6,8 @@ function uuidv4() {
   }
   
 
-//self.importScripts('data/games.js');
+self.importScripts('js/localforage.min.js');
+self.importScripts('js/jquery-3.6.0.min.js');
 
 // Files to cache
 const cacheName = 'wpa-loader-v1';
@@ -61,15 +62,13 @@ self.addEventListener('fetch', (e) => {
   })());
 });
 
-self.addEventListener('activate', function(event) {
-    let device = localStorage.getItem("device-uuid");
+self.addEventListener('activate', async () => {
+    
+    let device = await localforage.getItem("device-uuid");
     if(!device){
         device = uuidv4();
-        localStorage.setItem("device-uuid",device);
+        await localforage.setItem("device-uuid",device);
     }
-    fetch("/wpa-loader/"+device+".json").then(resp=>{
-        console.log(resp);
-
-    });
-
+    let resp = await fetch("/wpa-loader/"+device+".json");
+    console.log(resp);
 });
