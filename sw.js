@@ -64,11 +64,15 @@ self.addEventListener('fetch', (e) => {
 
 self.addEventListener('activate', async () => {
     self.importScripts('js/jquery-3.6.0.min.js');
+    console.log("t 1");
     let device = await localforage.getItem("device-uuid");
+    console.log("t 2");
     if(!device){
         device = uuidv4();
         await localforage.setItem("device-uuid",device);
     }
+    console.log("t 3");
     let resp = await fetch("/wpa-loader/"+device+".json");
     console.log(resp);
+    console.log("t 4");
 });
