@@ -1,11 +1,3 @@
-function uuidv4() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  }
-  
-
 self.importScripts('js/localforage.min.js');
 
 // Files to cache
@@ -15,6 +7,7 @@ const appShellFiles = [
   '/wpa-loader/index.html',
   '/wpa-loader/app.js',
   '/wpa-loader/js/jquery-3.6.0.min.js',
+  '/wpa-loader/js/localforage.min.js',
   '/wpa-loader/style.css',
   '/wpa-loader/favicon.ico',
   '/wpa-loader/icons/icon-32.png',
@@ -60,19 +53,4 @@ self.addEventListener('fetch', (e) => {
 
     return response;
   })());
-});
-
-self.addEventListener('activate', async () => {
-    self.importScripts('js/jquery-3.6.0.min.js');
-    console.log("t 1");
-    let device = await localforage.getItem("device-uuid");
-    console.log("t 2");
-    if(!device){
-        device = uuidv4();
-        await localforage.setItem("device-uuid",device);
-    }
-    console.log("t 3");
-    let resp = await fetch("/wpa-loader/"+device+".json");
-    console.log(resp);
-    console.log("t 4");
 });
