@@ -7,7 +7,6 @@ function uuidv4() {
   
 
 self.importScripts('js/localforage.min.js');
-self.importScripts('js/jquery-3.6.0.min.js');
 
 // Files to cache
 const cacheName = 'wpa-loader-v1';
@@ -15,6 +14,7 @@ const appShellFiles = [
   '/wpa-loader/',
   '/wpa-loader/index.html',
   '/wpa-loader/app.js',
+  '/wpa-loader/js/jquery-3.6.0.min.js',
   '/wpa-loader/style.css',
   '/wpa-loader/favicon.ico',
   '/wpa-loader/icons/icon-32.png',
@@ -63,7 +63,7 @@ self.addEventListener('fetch', (e) => {
 });
 
 self.addEventListener('activate', async () => {
-    
+    self.importScripts('js/jquery-3.6.0.min.js');
     let device = await localforage.getItem("device-uuid");
     if(!device){
         device = uuidv4();
