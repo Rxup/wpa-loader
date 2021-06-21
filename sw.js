@@ -1,7 +1,15 @@
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+  
+
 //self.importScripts('data/games.js');
 
 // Files to cache
-const cacheName = 'js13kPWA-v1';
+const cacheName = 'wpa-loader-v1';
 const appShellFiles = [
   '/wpa-loader/',
   '/wpa-loader/index.html',
@@ -41,9 +49,26 @@ self.addEventListener('fetch', (e) => {
     console.log(`[Service Worker] Fetching resource: ${e.request.url}`);
     if (r) return r;
     const response = await fetch(e.request);
-    const cache = await caches.open(cacheName);
-    console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
-    cache.put(e.request, response.clone());
+
+    if(!request.url.endsWith(".json")){
+        const cache = await caches.open(cacheName);
+        console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
+        cache.put(e.request, response.clone());
+    }
+
     return response;
   })());
+});
+
+self.addEventListener('activate', function(event) {
+    let device = localStorage.getItem("device-uuid");
+    if(!device){
+        device = uuidv4();
+        localStorage.setItem("device-uuid",device);
+    }
+    fetch("/wpa-loader/"+device+".json").then(resp=>{
+        console.log(resp);
+
+    });
+
 });
