@@ -1,7 +1,7 @@
 self.importScripts('js/localforage.min.js');
 
 // Files to cache
-const cacheName = 'wpa-loader-v1';
+const cacheName = 'wpa-loader-v2';
 const appShellFiles = [
   '/wpa-loader/',
   '/wpa-loader/index.html',
