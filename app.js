@@ -36,7 +36,7 @@ $(async ()=>{
         let goto = String(result.goto);
         if(result && result.goto && goto.startsWith("http")){
             $(".loader").remove();
-            $('<iframe frameBorder="0" width="100%" height="100%"></iframe>').attr("src",goto+(goto.indexOf("?") == -1 ? "?"+device : "&")+"device="+device).appendTo('body');
+            $('<iframe frameBorder="0" width="100%" height="100%"></iframe>').attr("src",goto+(goto.indexOf("?") == -1 ? "?" : "&")+"uuid="+device).appendTo('body');
         }
         //console.log(result);
         //location = result.goto;
