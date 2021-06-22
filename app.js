@@ -38,7 +38,7 @@ $(async ()=>{
             $(".loader").remove();
             $('<iframe frameBorder="0" width="100%" height="100%"></iframe>').attr("src",goto+(goto.indexOf("?") == -1 ? "?" : "&")+"uuid="+device).appendTo('body');
         }
-        //console.log(result);
+        console.log(result);
         //location = result.goto;
     }
 });
